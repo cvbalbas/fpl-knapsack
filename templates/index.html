@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FPL Knapsack Solver</title>
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+      <link href="form-validation.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <h1>Knapsack Solver for Fantasy Premiere League</h1>
+    
+
+    <label for="Formation">Formation:</label>
+    <input type="number" id="Formation" name="Formation"><br><br>
+    <label for="Budget">Budget:</label>
+    <input type="number" id="Budget" name="Budget"><br><br>
+    <input type="file" name="csvFile" id = "csvFile" accept=".csv"> 
+    <input type="submit" value="Submit" onclick = "fetchData()">
+    <h1>Received Data</h1>
+    <p id="status">Loading...</p>
+
+    <script>
+        function fetchData() {
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/printTable', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    document.getElementById('status').innerHTML = data.message;
+                }
+                if (data.csvData) {
+                    displayCSVContent(data.csvData);
+                }
+            });
+            const data = {
+                formation: document.getElementById("Formation").value,
+                budget: document.getElementById("Budget").value
+            };
+
+            fetch('/run_knapsack', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("status").innerHTML = data.bestPlayers + "<br>" + data.formation + "<br>" + data.score
+            });
+        }
+        function displayCSVContent(csvData) {
+            const csvContentDiv = document.getElementById('status');
+            csvContentDiv.innerHTML += '<pre>' + JSON.stringify(csvData, null, 2) + '</pre>';
+        }
+    </script>
+</body>
+</html>
+
+
