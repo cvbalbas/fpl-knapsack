@@ -32,6 +32,14 @@ class Player:
             group = 3
         return group
     
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'price': self.price,
+            'points': self.points,
+            'position': self.position
+        }
+    
 
 # URL for the Fantasy Premier League API
 FPL_API_URL = 'https://fantasy.premierleague.com/api/bootstrap-static/'

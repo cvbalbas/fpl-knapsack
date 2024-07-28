@@ -3,85 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <title>FPL Knapsack Solver</title>
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .bd-placeholder-img {
-          font-size: 1.125rem;
-          text-anchor: middle;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-        }
-  
-        @media (min-width: 768px) {
-          .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-          }
-        }
-      </style>
-      <link href="form-validation.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 <body class="bg-light">
-    <h1>Knapsack Solver for Fantasy Premiere League</h1>
-    
-
-    <label for="Formation">Formation:</label>
-    <input type="number" id="Formation" name="Formation"><br><br>
-    <label for="Budget">Budget:</label>
-    <input type="number" id="Budget" name="Budget"><br><br>
-    <input type="file" name="csvFile" id = "csvFile" accept=".csv"> 
-    <input type="submit" value="Submit" onclick = "fetchData()">
-    <h1>Received Data</h1>
-    <p id="status">Loading...</p>
-
+    <div class="container">
+        <main>
+          <div class="py-5 text-center">
+            <h2>Knapsack Solver for Fantasy Premiere League</h2>
+            <!-- <p class="lead">Upload </p> -->
+          </div>
+      
+          <div class="row g-5">
+            <div class="col-md-6 col-lg-6">
+              <form class="needs-validation" novalidate>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="csvFile" class="form-label">Upload your CSV file of Players</label>
+                      <input class="form-control" type="file" id="csvFile" accept = ".csv" required >
+                      <div id="csvFileHelp" class="form-text">CSV should include the following columns: name, score, position, price. Position should have the following values: ATT, MID, DEF, GK.</div>
+      
+                      <div class="invalid-feedback">
+                      Please select a valid CSV file.
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="Formation" class="form-label">Formation</label>
+                    <select class="form-select" id="Formation" required>
+                      <option value="">GF-DEF-MID-ATT</option>
+                      <option value="0">1-3-4-3</option>
+                      <option value="1">1-3-5-2</option>
+                      <option value="2">1-4-3-3</option>
+                      <option value="3">1-4-4-2</option>
+                      <option value="4">1-4-5-1</option>
+                      <option value="5">1-5-3-2</option>
+                      <option value="6">1-5-4-1</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid formation.
+                    </div>
+                  </div>
+      
+                  <div class="col-sm-6">
+                    <label for="Budget" class="form-label">Budget</label>
+                    <input type="number" class="form-control" id="Budget" placeholder="0" value="" required>
+                    <div id="BudgetHelp" class="form-text">Enter the budget in the same unit as your CSV file.</div>
+                    <div class="invalid-feedback">
+                      Valid budget is required.
+                    </div>
+                  </div>
+      
+                </div>
+      
+                <hr class="my-4">
+      
+                <button class="w-100 btn btn-primary btn-lg" type="submit" id = "button">
+                    <span id = "textBtn">Get the Best Team</span>
+                    <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button><br>
+                <div id="BtnHelp" class="form-text">Change the formation or budget to get a new result.</div>
+                <div class="alert alert-danger alert-dismissible fade show" id = "invalidTeam">
+                    <strong>No team can be made.</strong>
+                </div>
+              </form>
+            </div>
+      
+            <div class="col-md-6 col-lg-6" id = "top200">
+              <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-primary">Your Top 200 Players</span> 
+              </h4>
+              <span class="form-text">Top 50 per position</span>
+            </div>
+            <hr class="my-4">
+            <div class="col-md-12 col-lg-12" id = "bestTeam">
+              <h4 class="justify-content-between align-items-center mb-3">
+                <span class="text-primary">Your Best Teams</span>
+                <span class="badge rounded-pill bg-primary" id = "TeamsListNum">0</span>
+              </h4>
+            </div>
+          </div>
+        </main>
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            
+        </footer>
+       
+        
+      </div>
+      <!-- <div id = "status"></div>
+      <div id = "csvContent"></div> -->
     <script>
+        (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                } else {
+                    event.preventDefault();
+                    fetchData()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+            })
+        })()
+        let counter = 0
+
         function fetchData() {
-            const fileInput = document.getElementById('csvFile');
-            const file = fileInput.files[0];
-            if (!file) {
+            // document.getElementById("invalidTeam").style.display = "none"
+            $("#invalidTeam").animate({"opacity": 0});
+            document.getElementById("textBtn").textContent = "Calculating"
+            document.getElementById("spinner").style.display = "inline-block"
+            document.getElementById("button").disabled = true
+            const uploadedFile = document.getElementById('csvFile').files[0];
+            if (!uploadedFile) {
                 alert("Please select a file.");
                 return;
             }
-
+            console.log(uploadedFile['name'])
             const formData = new FormData();
-            formData.append('file', file);
-
+            formData.append('file', uploadedFile);
+            console.log(formData)
+            const data2 = {
+                    filename: "uploads/" + uploadedFile['name'],
+                    formation: document.getElementById("Formation").value,
+                    budget: document.getElementById("Budget").value
+                };
+            
+            for (var pair of formData.entries()) {
+                console.log(pair[0],pair[1]);
+            }
             fetch('/printTable', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.message) {
-                    document.getElementById('status').innerHTML = data.message;
+                    // document.getElementById('status').innerHTML = data.message;
                 }
-                if (data.csvData) {
-                    displayCSVContent(data.csvData);
+                if (data.players) {
+                    displayCSVContent(data.players);
                 }
-            });
-            const data = {
-                formation: document.getElementById("Formation").value,
-                budget: document.getElementById("Budget").value
-            };
-
-            fetch('/run_knapsack', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("status").innerHTML = data.bestPlayers + "<br>" + data.formation + "<br>" + data.score
+                
+                fetch('/run_knapsack', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data2)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.score != -1){
+                        counter++
+                        // document.getElementById("status").innerHTML = data.bestPlayers + "<br>" + data.formation + "<br>" + data.score
+                        const players = parseData(data.bestPlayers.toString());
+                        const table = generateTable(players);
+                        const formation = data.formation.split(",")
+                        const caption = "<div id = 'captionTable'><div><h5>Formation: 1 - " + formation[0] + " - " + formation[1] + " - " + formation[2] + "</h5>" + "<h5>Score: " + data.score + "</h5></div><div><button type='button' class='btn btn-secondary' onclick = 'downloadCSV(" + counter + ", \"" + data.formation + "\", \"" + data.score + "\")''><i class='fa fa-download' aria-hidden='true'></i> csv</button></div></div>"
+                        const bestTeamDiv = document.getElementById('bestTeam');
+                        bestTeamDiv.innerHTML += (caption)
+                        bestTeamDiv.appendChild(table);
+                        document.getElementById("textBtn").textContent = "Get another team"
+                        document.getElementById("spinner").style.display = "none"
+                        document.getElementById("TeamsListNum").innerHTML = counter
+                        var scrollDiv = document.getElementsByClassName("table")[counter].offsetTop;
+                        window.scrollTo({ top: scrollDiv+100, behavior: 'smooth'});
+                        document.getElementById("button").disabled = false
+                    }
+                    else {
+                        // document.getElementById("invalidTeam").style.display = "block"
+                        $("#invalidTeam").animate({"opacity": 1});
+                        document.getElementById("textBtn").textContent = "Get another team"
+                        document.getElementById("spinner").style.display = "none"
+                        document.getElementById("button").disabled = false
+                    }
+                });
             });
         }
         function displayCSVContent(csvData) {
-            const csvContentDiv = document.getElementById('status');
-            csvContentDiv.innerHTML += '<pre>' + JSON.stringify(csvData, null, 2) + '</pre>';
+            console.log(csvData.length)
+            const table = generateTable(csvData);
+            // Insert the table into the div with id "bestTeam"
+            const top200Div = document.getElementById('top200');
+            top200Div.innerHTML = "<h4 class='d-flex justify-content-between align-items-center mb-3'><span class='text-primary'>Your Top 200 Players</span></h4><span class='form-text'>Top 50 per position</span>"
+            top200Div.appendChild(table);
+            // const csvContentDiv = document.getElementById('csvContent');
+            // csvContentDiv.innerHTML = '<pre>' + JSON.stringify(csvData, null, 2) + '</pre>';
+        }
+                // Function to parse the data string and return an array of player objects
+        function parseData(data) {
+            const players = [];
+            const items = data.trim().split('),(');
+            for (let item of items) {
+                item = item.replace(/[()]/g, ''); // Remove parentheses
+                const [name, price, points, position] = item.split(',').map(el => el.trim());
+                players.push({ name, price: parseFloat(price), points: parseFloat(points), position });
+            }
+            return players;
+        }
+
+        // Function to generate and return a table element with player data
+        function generateTable(players) {
+            const table = document.createElement('table');
+            table.className = 'table caption-top table-hovers';
+            
+            // Create table header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            const headers = ['Name', 'Price', 'Points', 'Position'];
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Create table body
+            const tbody = document.createElement('tbody');
+            players.forEach(player => {
+                const row = document.createElement('tr');
+
+                // Add data cells
+                const nameCell = document.createElement('td');
+                nameCell.textContent = player.name;
+                row.appendChild(nameCell);
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = player.price;
+                row.appendChild(priceCell);
+
+                const pointsCell = document.createElement('td');
+                pointsCell.textContent = player.points;
+                row.appendChild(pointsCell);
+
+                const positionCell = document.createElement('td');
+                const badgeSpan = document.createElement('span');
+                badgeSpan.textContent = player.position;
+                badgeSpan.className = 'badge';
+
+                switch (player.position) {
+                    case 'GK':
+                        badgeSpan.classList.add('bg-danger');
+                        break;
+                    case 'DEF':
+                        badgeSpan.classList.add('bg-success');
+                        break;
+                    case 'MID':
+                        badgeSpan.classList.add('bg-warning');
+                        break;
+                    case 'ATT':
+                        badgeSpan.classList.add('bg-primary');
+                        break;
+                }
+                positionCell.appendChild(badgeSpan);
+                row.appendChild(positionCell);
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+        function downloadCSV(tableId, formation, score) {
+            // Variable to store the final csv data
+            let csv_data = [];
+
+            // Get each row data
+            var table = document.getElementsByClassName("table");
+            var rows = Array.from(table[tableId].querySelectorAll('tr'));
+            for (let i = 0; i < rows.length; i++) {
+
+                // Get each column data
+                let cols = rows[i].querySelectorAll('td,th');
+
+                // Stores each csv row data
+                let csvrow = [];
+                for (let j = 0; j < cols.length; j++) {
+                    // Get the text data of each cell
+                    // of a row and push it to csvrow
+                    if(cols[j].innerHTML.includes("<span")){
+                        csvrow.push(cols[j].querySelector('span').textContent)
+                    } else{
+                        csvrow.push(cols[j].innerHTML);
+                    }
+                }
+
+                // Combine each column value with comma
+                csv_data.push(csvrow.join(","));
+            }
+
+            // Combine each row data with new line character
+            csv_data = csv_data.join('\n');
+
+            // Call this function to download csv file  
+            downloadCSVFile(csv_data, formation, score);
+
+        }
+        function downloadCSVFile(csv_data, formation, score) {
+
+            // Create CSV file object and feed
+            // our csv_data into it
+            CSVFile = new Blob([csv_data], {
+                type: "text/csv"
+            });
+
+            // Create to temporary link to initiate
+            // download process
+            let temp_link = document.createElement('a');
+
+            // Download csv file
+            temp_link.download = "table" + formation.replaceAll(",", "-") + "-" + score +".csv";
+            let url = window.URL.createObjectURL(CSVFile);
+            temp_link.href = url;
+
+            // This link should not be displayed
+            temp_link.style.display = "none";
+            document.body.appendChild(temp_link);
+
+            // Automatically click the link to
+            // trigger download
+            temp_link.click();
+            document.body.removeChild(temp_link);
         }
     </script>
 </body>

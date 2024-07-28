@@ -39,53 +39,73 @@ def printTable():
         file.save(filepath)
         
         # Read the CSV file into a DataFrame
-        df = pd.read_csv(filepath)
+        # df = pd.read_csv(filepath)
+        players = []
+        with open(filepath, mode='r', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            # print(*reader)
+            for row in reader:
+                # print(*row)
+                if int(row['score']) > 0 and row['status'] == 'a':
+                    name = row['name']
+                    price = float(row['price'])
+                    points = float(row['score'])
+                    position = row['position']
+                    # Create a Player instance and append to the list
+                    player = Player(name=name, price=price, points=points, position=position)
+                    players.append(player)
+                    # print(player)
         
         # Convert the DataFrame to a JSON object
-        csv_data = df.to_dict(orient='records')
+        # csv_data = df.to_dict(orient='records')
+        # print(csv_data)
+        # Get top 50 players from each position   
+        top_players_by_position = get_top_players_by_position(players, top_n=50)
+        merged_top_players = []
+        for top_players in top_players_by_position.values():
+            merged_top_players.extend(top_players)
 
-        sorted_playersDB = sorted(csv_data, key=lambda player: player.points, reverse=True)
+        # Sort the merged list by points in descending order
+        sorted_merged_top_players = sorted(merged_top_players, key=lambda player: player.points, reverse=True)
+        # sorted_playersDB = sorted(players, key=lambda player: player.points, reverse=True)
+        players_dict = [player.to_dict() for player in sorted_merged_top_players]
 
-        return jsonify({'message': 'File successfully uploaded', 'csvData': sorted_playersDB[:100]}), 200
+        print(*players_dict)
+        return jsonify({'message': 'File successfully uploaded', 'players': players_dict}), 200
 
 @app.route('/run_knapsack', methods=['POST'])
 def run_knapsack():
     data = request.get_json()
     formation = int(data['formation']) 
     budget = int(data['budget'])
-    # This is the data you want to send to the frontend
-    if formation == 0: 
-        possible_formations = [
+    filename = data['filename'] #Save as a unique filename and that's what we pass
+    formations = [
             [3, 4, 3],
-            #   [3, 5, 2],
-            #   [4, 3, 3],
-            #   [4, 4, 2],
-            #   [4, 5, 1],
-            #   [5, 3, 2],
-            #   [5, 4, 1],
+            [3, 5, 2],
+            [4, 3, 3],
+            [4, 4, 2],
+            [4, 5, 1],
+            [5, 3, 2],
+            [5, 4, 1],
         ]
-    elif formation == 1:
-        possible_formations = [
-            # [3, 4, 3],
-               [3, 5, 2],
-            #   [4, 3, 3],
-            #   [4, 4, 2],
-            #   [4, 5, 1],
-            #   [5, 3, 2],
-            #   [5, 4, 1],
-        ]
-
-    playersDB = create_players_from_csv()
+    possible_formations = [formations[formation]]
+    
+    playersDB = create_players_from_csv(filename)
     # print(*playersDB[:150])
-    # print(best_full_teams(playersDB[:150], possible_formations, budget))
-    sorted_playersDB = sorted(playersDB, key=lambda player: player.points, reverse=True)
-    #print(*sorted_playersDB)
-    print("Data successfully opened fpl_players.csv and loaded into playersDB")
+    
+    # Get top 50 players from each position   
+    top_players_by_position = get_top_players_by_position(playersDB, top_n=50)
+    merged_top_players = []
+    for top_players in top_players_by_position.values():
+        merged_top_players.extend(top_players)
 
-    #task = run_knapsack_algorithm.delay(sorted_playersDB[:50], possible_formations, budget)
+    # Sort the merged list by points in descending order
+    sorted_merged_top_players = sorted(merged_top_players, key=lambda player: player.points, reverse=True)
+    # sorted_playersDB = sorted(playersDB, key=lambda player: player.points, reverse=True)
+    # print(*sorted_playersDB[:100])
 
-    #return jsonify({"task_id": task.id}), 202
-    formation =  best_full_teams(sorted_playersDB[:100], possible_formations, budget)
+    # print("Data successfully opened fpl_players.csv and loaded into playersDB")
+    formation =  best_full_teams(sorted_merged_top_players, possible_formations, budget)
     best_players = formation[0][2]
     best_players_str = ",".join(str(element) for element in best_players)
     # print(best_players_str)
@@ -240,7 +260,28 @@ def get_onepick_solution(scores, paths):
 
     return scores_paths_by_score[0][0], scores_paths_by_score[0][1]
 
-
+def get_top_players_by_position(players, top_n=40):
+    # Group players by position
+    grouped_players = {
+        "GK": [],
+        "DEF": [],
+        "MID": [],
+        "ATT": []
+    }
+    
+    for player in players:
+        grouped_players[player.position].append(player)
+    
+    # Sort each group by points in descending order and slice the top_n players
+    top_players = {}
+    for position, players_list in grouped_players.items():
+        sorted_players = sorted(players_list, key=lambda p: p.points, reverse=True)
+        top_players[position] = sorted_players[:top_n]
+    print(len(grouped_players["GK"]))
+    print(len(grouped_players["DEF"]))
+    print(len(grouped_players["MID"]))
+    print(len(grouped_players["ATT"]))
+    return top_players
     
     
 if __name__ == '__main__':

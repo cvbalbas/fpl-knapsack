@@ -1,0 +1,85 @@
+.bd-placeholder-img {
+font-size: 1.125rem;
+text-anchor: middle;
+-webkit-user-select: none;
+-moz-user-select: none;
+user-select: none;
+}
+
+@media (min-width: 768px) {
+.bd-placeholder-img-lg {
+    font-size: 3.5rem;
+}
+}
+/* width */
+::-webkit-scrollbar {
+width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+.container {
+    max-width: 960px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    transition-duration: 0.5s;
+}
+#top200 table{
+    height: 370px;
+}
+#top200 table tr td:first-child,#top200 table tr th:first-child{
+    width: 40%;
+}
+thead {
+    padding-right: 13px;
+    flex: 0 0 auto;
+}
+
+tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+#spinner {
+    display: none;
+}
+#invalidTeam {
+    opacity: 0;
+    padding: 10px;
+    margin-bottom: 0px;
+}
+#BtnHelp {
+    margin-bottom: 5px;
+}
+#captionTable {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+i {
+    margin: 2px;
+}
