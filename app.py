@@ -285,4 +285,6 @@ def get_top_players_by_position(players, top_n=40):
     
     
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
