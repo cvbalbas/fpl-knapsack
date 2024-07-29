@@ -8,17 +8,21 @@ import csv
 import os
 import pandas as pd
 import uuid
+from redis import redis
+from rq import Queue
+from rq.job import Job
 
 # from celery_config import run_knapsack_algorithm
 
 # my_flask_app/app.py
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 from flask_executor import Executor
 
 
 app = Flask(__name__)
-executor = Executor(app)
-tasks = {}
+redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
+conn = redis.from_url(redis_url)
+queue = Queue(connection=conn)
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -103,7 +107,6 @@ def run_knapsack():
     for top_players in top_players_by_position.values():
         merged_top_players.extend(top_players)
 
-    task_id = str(uuid.uuid4())
 
     # Sort the merged list by points in descending order
     sorted_merged_top_players = sorted(merged_top_players, key=lambda player: player.points, reverse=True)
@@ -111,8 +114,11 @@ def run_knapsack():
     # print(*sorted_playersDB[:100])
 
     # print("Data successfully opened fpl_players.csv and loaded into playersDB")
-    future =  executor.submit(best_full_teams, sorted_merged_top_players, possible_formations, budget)
-    tasks[task_id] = future
+    
+    user_id = str(uuid.uuid4())
+    job =  queue.enqueue(best_full_teams, sorted_merged_top_players, possible_formations, budget)
+    session['task_id'] = job.get_id()
+    session['user_id'] = user_id
 
     # best_players = formation[0][2]
     # best_players_str = ",".join(str(element) for element in best_players)
@@ -126,19 +132,17 @@ def run_knapsack():
     #     "score": formation[0][1]
     # }
 
-    return jsonify({'status': 'submitted', 'task_id': task_id}), 202
+    return jsonify({'status': 'submitted', 'task_id': job.get_id()})
 
 @app.route('/task_status/<task_id>')
 def task_status(task_id):
-    future = tasks.get(task_id)
-    if not future:
-        return jsonify({'status': 'unknown task id'}), 404
-
-    if future.done():
-        result = future.result()
-        return jsonify(result)
+    job = Job.fetch(task_id, connection=conn)
+    if job.is_finished:
+        return jsonify(job.result)
+    elif job.is_failed:
+        return jsonify({'status': 'FAILED'})
     else:
-        return jsonify({'status': 'running'}), 202
+        return jsonify({'status': 'IN_PROGRESS'})
     
 
 def best_full_teams(players_list, formations, budget):
