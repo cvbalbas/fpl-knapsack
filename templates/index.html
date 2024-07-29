@@ -183,8 +183,10 @@
             const response = await fetch(`/task_status/${task_id}`);
             const data = await response.json();
 
-            if (data.status === 'running') {
+            if (data.status === 'IN_PROGRESS') {
                 setTimeout(() => checkStatus(task_id), 1000);
+            } else if (data.status === 'FAILED') {
+                alert('Task failed');
             } else {
                 handleKnapsackResult(data);
             }
