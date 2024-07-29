@@ -105,7 +105,7 @@ def run_knapsack():
     # print(*playersDB[:150])
     
     # Get top 50 players from each position   
-    top_players_by_position = get_top_players_by_position(playersDB, top_n=50)
+    top_players_by_position = get_top_players_by_position(playersDB, top_n=10)
     merged_top_players = []
     for top_players in top_players_by_position.values():
         merged_top_players.extend(top_players)
