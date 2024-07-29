@@ -21,6 +21,8 @@ from flask_executor import Executor
 
 
 app = Flask(__name__)
+app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
+
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
 conn = Redis.from_url(redis_url)
 queue = Queue(connection=conn)
