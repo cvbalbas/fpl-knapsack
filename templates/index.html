@@ -162,41 +162,55 @@
                     displayCSVContent(data.players);
                 }
                 
-                fetch('/run_knapsack', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data2)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.score != -1){
-                        counter++
-                        // document.getElementById("status").innerHTML = data.bestPlayers + "<br>" + data.formation + "<br>" + data.score
-                        const players = parseData(data.bestPlayers.toString());
-                        const table = generateTable(players);
-                        const formation = data.formation.split(",")
-                        const caption = "<div id = 'captionTable'><div><h5>Formation: 1 - " + formation[0] + " - " + formation[1] + " - " + formation[2] + "</h5>" + "<h5>Score: " + data.score + "</h5></div><div><button type='button' class='btn btn-secondary' onclick = 'downloadCSV(" + counter + ", \"" + data.formation + "\", \"" + data.score + "\")''><i class='fa fa-download' aria-hidden='true'></i> csv</button></div></div>"
-                        const bestTeamDiv = document.getElementById('bestTeam');
-                        bestTeamDiv.innerHTML += (caption)
-                        bestTeamDiv.appendChild(table);
-                        document.getElementById("textBtn").textContent = "Get another team"
-                        document.getElementById("spinner").style.display = "none"
-                        document.getElementById("TeamsListNum").innerHTML = counter
-                        var scrollDiv = document.getElementsByClassName("table")[counter].offsetTop;
-                        window.scrollTo({ top: scrollDiv+100, behavior: 'smooth'});
-                        document.getElementById("button").disabled = false
-                    }
-                    else {
-                        // document.getElementById("invalidTeam").style.display = "block"
-                        $("#invalidTeam").animate({"opacity": 1});
-                        document.getElementById("textBtn").textContent = "Get another team"
-                        document.getElementById("spinner").style.display = "none"
-                        document.getElementById("button").disabled = false
-                    }
-                });
+                run_knapsack(data2)
             });
+        }
+        async function run_knapsack(data2){
+            const response = await fetch('/run_knapsack', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data2)
+            });
+
+            const data = await response.json();
+            if (data.status === 'submitted') {
+                checkStatus(data.task_id);
+            }
+        }
+        async function checkStatus(task_id) {
+            const response = await fetch(`/task_status/${task_id}`);
+            const data = await response.json();
+
+            if (data.status === 'running') {
+                setTimeout(() => checkStatus(task_id), 1000);
+            } else {
+                handleKnapsackResult(data);
+            }
+        }
+        function handleKnapsackResult(data) {
+            if (data.score != -1) {
+                counter++;
+                const players = parseData(data.bestPlayers.toString());
+                const table = generateTable(players);
+                const formation = data.formation.split(",");
+                const caption = `<div id="captionTable"><div><h5>Formation: 1 - ${formation[0]} - ${formation[1]} - ${formation[2]}</h5><h5>Score: ${data.score}</h5></div><div><button type='button' class='btn btn-secondary' onclick='downloadCSV(${counter}, "${data.formation}", "${data.score}")'><i class='fa fa-download' aria-hidden='true'></i> csv</button></div></div>`;
+                const bestTeamDiv = document.getElementById('bestTeam');
+                bestTeamDiv.innerHTML += (caption);
+                bestTeamDiv.appendChild(table);
+                document.getElementById("textBtn").textContent = "Get another team";
+                document.getElementById("spinner").style.display = "none";
+                document.getElementById("TeamsListNum").innerHTML = counter;
+                var scrollDiv = document.getElementsByClassName("table")[counter].offsetTop;
+                window.scrollTo({ top: scrollDiv+100, behavior: 'smooth' });
+                document.getElementById("button").disabled = false;
+            } else {
+                $("#invalidTeam").animate({"opacity": 1});
+                document.getElementById("textBtn").textContent = "Get another team";
+                document.getElementById("spinner").style.display = "none";
+                document.getElementById("button").disabled = false;
+            }
         }
         function displayCSVContent(csvData) {
             console.log(csvData.length)

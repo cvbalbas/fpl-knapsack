@@ -7,14 +7,18 @@ import numpy as np
 import csv
 import os
 import pandas as pd
+import uuid
 
 # from celery_config import run_knapsack_algorithm
 
 # my_flask_app/app.py
 from flask import Flask, request, jsonify, render_template
+from flask_executor import Executor
 
 
 app = Flask(__name__)
+executor = Executor(app)
+tasks = {}
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -99,26 +103,43 @@ def run_knapsack():
     for top_players in top_players_by_position.values():
         merged_top_players.extend(top_players)
 
+    task_id = str(uuid.uuid4())
+
     # Sort the merged list by points in descending order
     sorted_merged_top_players = sorted(merged_top_players, key=lambda player: player.points, reverse=True)
     # sorted_playersDB = sorted(playersDB, key=lambda player: player.points, reverse=True)
     # print(*sorted_playersDB[:100])
 
     # print("Data successfully opened fpl_players.csv and loaded into playersDB")
-    formation =  best_full_teams(sorted_merged_top_players, possible_formations, budget)
-    best_players = formation[0][2]
-    best_players_str = ",".join(str(element) for element in best_players)
-    # print(best_players_str)
+    future =  executor.submit(best_full_teams, sorted_merged_top_players, possible_formations, budget)
+    tasks[task_id] = future
 
-    formation_str = ",".join(str(element) for element in formation[0][0])
+    # best_players = formation[0][2]
+    # best_players_str = ",".join(str(element) for element in best_players)
+    # # print(best_players_str)
 
-    data = {
-        "bestPlayers": best_players_str,
-        "formation": formation_str,
-        "score": formation[0][1]
-    }
+    # formation_str = ",".join(str(element) for element in formation[0][0])
 
-    return data
+    # data = {
+    #     "bestPlayers": best_players_str,
+    #     "formation": formation_str,
+    #     "score": formation[0][1]
+    # }
+
+    return jsonify({'status': 'submitted', 'task_id': task_id}), 202
+
+@app.route('/task_status/<task_id>')
+def task_status(task_id):
+    future = tasks.get(task_id)
+    if not future:
+        return jsonify({'status': 'unknown task id'}), 404
+
+    if future.done():
+        result = future.result()
+        return jsonify(result)
+    else:
+        return jsonify({'status': 'running'}), 202
+    
 
 def best_full_teams(players_list, formations, budget):
     formation_score_players = []
@@ -152,8 +173,20 @@ def best_full_teams(players_list, formations, budget):
                                             reverse=True)
     for final_formation_score in formation_score_players_by_score:
         print((final_formation_score[0], final_formation_score[1]))
+    
 
-    return formation_score_players
+    best_players = formation_score_players[0][2]
+    best_players_str = ",".join(str(element) for element in best_players)
+    # print(best_players_str)
+
+    formation_str = ",".join(str(element) for element in formation_score_players[0][0])
+
+    data = {
+        "bestPlayers": best_players_str,
+        "formation": formation_str,
+        "score": formation_score_players[0][1]
+    }
+    return data
 
 
 def players_preproc(players_list, formation):
