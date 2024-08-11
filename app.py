@@ -7,25 +7,14 @@ import numpy as np
 import csv
 import os
 import pandas as pd
-import uuid
-from redis import Redis
-from rq import Queue
-from rq.job import Job
-from tasks import best_full_teams
 
 # from celery_config import run_knapsack_algorithm
 
 # my_flask_app/app.py
-from flask import Flask, request, jsonify, render_template, session
-from flask_executor import Executor
+from flask import Flask, request, jsonify, render_template
 
 
 app = Flask(__name__)
-app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
-
-redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
-conn = Redis.from_url(redis_url)
-queue = Queue(connection=conn)
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -73,10 +62,10 @@ def printTable():
     # csv_data = df.to_dict(orient='records')
     # print(csv_data)
     # Get top 50 players from each position   
-    top_players_by_position = get_top_players_by_position(players, top_n=50)
-    merged_top_players = []
-    for top_players in top_players_by_position.values():
-        merged_top_players.extend(top_players)
+    # top_players_by_position = get_top_players_by_position(players, top_n=50)
+    # merged_top_players = []
+    # for top_players in top_players_by_position.values():
+    #     merged_top_players.extend(top_players)
 
     # Sort the merged list by points in descending order
     sorted_merged_top_players = sorted(players, key=lambda player: player.name, reverse=False)
@@ -118,7 +107,6 @@ def run_knapsack():
     # merged_top_players = []
     # for top_players in top_players_by_position.values():
     #     merged_top_players.extend(top_players)
-
 
     # Sort the merged list by points in descending order
     # sorted_merged_top_players = sorted(merged_top_players, key=lambda player: player.points, reverse=True)
