@@ -1,16 +1,3 @@
-.bd-placeholder-img {
-font-size: 1.125rem;
-text-anchor: middle;
--webkit-user-select: none;
--moz-user-select: none;
-user-select: none;
-}
-
-@media (min-width: 768px) {
-.bd-placeholder-img-lg {
-    font-size: 3.5rem;
-}
-}
 /* width */
 ::-webkit-scrollbar {
 width: 10px;
@@ -41,12 +28,23 @@ table {
     width: 100%;
     transition-duration: 0.5s;
 }
+#top200 td, #top200 th{
+    height: 55px;
+    vertical-align: middle;
+}
 #top200 table{
-    height: 370px;
+    height: 470px;
 }
-#top200 table tr td:first-child,#top200 table tr th:first-child{
-    width: 40%;
+#top200 table tr td:nth-child(2),#top200 table tr th:nth-child(2){
+    width: 23%;
 }
+#top200 table tr td:nth-child(3),#top200 table tr th:nth-child(3){
+    width: 18%;
+}
+#top200 table tr td:nth-child(5),#top200 table tr th:nth-child(5){
+    width: 12%;
+}
+
 thead {
     padding-right: 13px;
     flex: 0 0 auto;
@@ -82,4 +80,96 @@ tr {
 }
 i {
     margin: 2px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.search-container {
+    position: relative;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+#playerSearch {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+    width: 50%;
+}
+#positionSearch{
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    width: 50%;
+}
+#inputs {
+    display: flex;
+}
+.suggestions-box {
+    border: 1px solid #ccc;
+    border-top: none;
+    height: 200px;
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+}
+
+.suggestions-box div {
+    padding: 10px;
+    cursor: pointer;
+    border: solid 1px transparent;
+}
+
+.suggestions-box div:hover {
+    background-color:#d1e7dd;
+    border-color: #badbcc;
+}
+
+.PlayerSuggestion{
+    display:flex;
+    justify-content: space-between;
+}
+.PlayerSuggestion span:first-child {
+    display:inline-block;
+    width: 200px;
+}
+.PlayerSuggestion span:nth-child(2) {
+    display:inline-block;
+    width: 80px;
+}
+.points-cell {
+    background-color: transparent;
+}
+
+.points-cell:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+.edit-icon, .check-icon {
+    display: none;
+    cursor: pointer;
+}
+.fa {
+    font-size: 20px;
+}
+#top200 th .fa {
+    font-size: 15px;
+    color: #ccc;
+    margin-left: 5px
+}
+
+.fa-pencil-square {
+    color: #0d6efd;
+}
+.fa-minus-square {
+    color: #dc3545;
+}
+.fa-check-square {
+    color: #198754;
 }

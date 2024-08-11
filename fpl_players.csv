@@ -1,0 +1,590 @@
+id,name,team,score,position,price,status
+182,Palmer,Chelsea,244,MID,105,a
+348,Foden,Man City,230,MID,95,a
+58,Watkins,Aston Villa,228,ATT,90,a
+17,Saka,Arsenal,226,MID,100,a
+351,Haaland,Man City,217,ATT,150,a
+503,Son,Spurs,213,MID,100,a
+328,M.Salah,Liverpool,211,MID,125,a
+13,Odegaard,Arsenal,186,MID,85,a
+398,Gordon,Newcastle,183,MID,75,a
+24,White,Arsenal,182,DEF,65,a
+514,Bowen,West Ham,182,MID,75,a
+4,Havertz,Arsenal,180,ATT,80,a
+82,Solanke,Bournemouth,175,ATT,75,a
+401,Isak,Newcastle,172,ATT,85,a
+366,B.Fernandes,Man Utd,166,MID,85,a
+16,Rice,Arsenal,165,MID,65,a
+207,Mateta,Crystal Palace,165,ATT,75,a
+18,Saliba,Arsenal,164,DEF,60,a
+360,Rodrigo,Man City,159,MID,65,a
+352,J.Alvarez,Man City,158,ATT,70,a
+125,Gross,Brighton,153,MID,65,u
+235,Pickford,Everton,153,GK,50,a
+394,Bruno G.,Newcastle,153,MID,65,a
+3,Gabriel,Arsenal,149,DEF,60,a
+28,Bailey,Aston Villa,148,MID,65,a
+531,Ward-Prowse,West Ham,146,MID,65,a
+34,Diaby,Aston Villa,142,MID,65,u
+180,N.Jackson,Chelsea,142,ATT,75,a
+327,Luis Diaz,Liverpool,142,MID,75,a
+433,Gibbs-White,Nott'm Forest,142,MID,65,a
+342,Bernardo,Man City,141,MID,65,a
+23,Trossard,Arsenal,138,MID,70,a
+525,Kudus,West Ham,137,MID,65,a
+199,Eze,Crystal Palace,136,MID,70,a
+495,Pedro Porro,Spurs,136,DEF,55,a
+15,Raya,Arsenal,135,GK,55,a
+541,Cunha,Wolves,135,ATT,65,a
+248,Leno,Fulham,133,GK,50,a
+383,Onana,Man Utd,133,GK,50,a
+316,Darwin,Liverpool,132,ATT,75,a
+110,Wissa,Brentford,131,ATT,60,a
+372,Garnacho,Man Utd,131,MID,65,a
+447,Wood,Nott'm Forest,131,ATT,60,a
+491,Johnson,Spurs,131,MID,65,a
+492,Kulusevski,Spurs,130,MID,65,a
+169,Gallagher,Chelsea,129,MID,60,a
+99,Mbeumo,Brentford,127,MID,70,a
+240,Andreas,Fulham,127,MID,55,a
+550,Hee Chan,Wolves,125,MID,65,a
+219,Branthwaite,Everton,124,DEF,50,a
+230,McNeil,Everton,124,MID,55,a
+186,Sterling,Chelsea,123,MID,70,a
+350,Gvardiol,Man City,123,DEF,60,a
+363,Walker,Man City,123,DEF,55,a
+415,Schar,Newcastle,123,DEF,55,a
+311,Alexander-Arnold,Liverpool,122,DEF,70,a
+497,Richarlison,Spurs,122,ATT,70,a
+191,Andersen,Crystal Palace,121,DEF,45,a
+48,McGinn,Aston Villa,119,MID,55,a
+91,Flekken,Brentford,119,GK,45,a
+210,Mitchell,Crystal Palace,119,DEF,50,a
+432,Elanga,Nott'm Forest,119,MID,55,a
+9,Martinelli,Arsenal,118,MID,70,a
+236,Tarkowski,Everton,117,DEF,50,a
+339,Virgil,Liverpool,117,DEF,60,a
+494,Maddison,Spurs,117,MID,75,a
+217,A.Doucoure,Everton,116,MID,55,a
+513,Areola,West Ham,116,GK,45,a
+530,Soucek,West Ham,116,MID,50,a
+47,Martinez,Aston Villa,115,GK,50,a
+340,Akanji,Man City,112,DEF,55,a
+347,Ederson M.,Man City,112,GK,55,a
+375,Hojlund,Man Utd,112,ATT,70,i
+508,Vicario,Spurs,112,GK,50,a
+369,Dalot,Man Utd,111,DEF,50,a
+418,Trippier,Newcastle,111,DEF,60,a
+73,Neto,Bournemouth,110,GK,45,a
+317,Diogo J.,Liverpool,110,MID,75,a
+410,Longstaff,Newcastle,110,MID,50,a
+192,J.Ayew,Crystal Palace,109,MID,55,a
+329,Mac Allister,Liverpool,109,MID,65,a
+434,Hudson-Odoi,Nott'm Forest,109,MID,55,a
+385,Rashford,Man Utd,108,MID,70,a
+78,Semenyo,Bournemouth,107,MID,55,a
+310,A.Becker,Liverpool,107,GK,55,a
+498,Romero,Spurs,107,DEF,50,a
+554,Jose Sa,Wolves,107,GK,45,a
+321,Gakpo,Liverpool,106,ATT,75,a
+244,Castagne,Fulham,105,DEF,45,a
+25,Zinchenko,Arsenal,104,DEF,50,a
+129,Joao Pedro,Brighton,104,ATT,55,a
+255,Robinson,Fulham,104,DEF,45,a
+79,Senesi,Bournemouth,102,DEF,50,a
+247,Iwobi,Fulham,102,MID,55,a
+29,Barkley,Aston Villa,101,MID,55,a
+220,Calvert-Lewin,Everton,101,ATT,60,a
+231,Mykolenko,Everton,101,DEF,45,a
+71,Kluivert,Bournemouth,100,MID,55,a
+527,L.Paqueta,West Ham,100,MID,60,a
+336,Szoboszlai,Liverpool,99,MID,65,a
+341,Ake,Man City,99,DEF,55,a
+565,Sarabia,Wolves,99,MID,55,a
+95,Jensen,Brentford,98,MID,55,a
+345,De Bruyne,Man City,98,MID,95,a
+346,Doku,Man City,98,MID,65,a
+381,McTominay,Man Utd,98,MID,50,a
+113,Adingra,Brighton,97,MID,55,a
+251,Muniz,Fulham,97,ATT,60,a
+395,Burn,Newcastle,97,DEF,45,a
+319,Elliott,Liverpool,96,MID,55,a
+557,Mario Jr.,Wolves,95,MID,50,a
+179,Mudryk,Chelsea,94,MID,65,a
+259,Wilson,Fulham,94,MID,55,a
+94,Janelt,Brentford,93,MID,50,a
+224,Harrison,Everton,92,MID,55,a
+290,De Cordova-Reid,Leicester,92,MID,55,a
+44,Konsa,Aston Villa,91,DEF,45,a
+63,Christie,Bournemouth,90,MID,50,a
+83,Tavernier,Bournemouth,89,MID,55,a
+120,Dunk,Brighton,89,DEF,45,a
+361,Ruben,Man City,88,DEF,55,a
+223,Garner,Everton,87,MID,50,a
+499,P.Sarr,Spurs,86,MID,50,a
+560,Neto,Wolves,86,MID,65,a
+2,G.Jesus,Arsenal,85,ATT,70,a
+36,Digne,Aston Villa,85,DEF,45,a
+52,Pau,Aston Villa,85,DEF,45,a
+516,Coufal,West Ham,85,DEF,45,a
+85,Zabarnyi,Bournemouth,84,DEF,45,a
+88,Collins,Brentford,84,DEF,45,a
+157,Caicedo,Chelsea,84,MID,50,a
+27,Archer,Aston Villa,82,ATT,50,a
+402,J.Murphy,Newcastle,82,MID,55,a
+520,Emerson,West Ham,82,DEF,45,a
+524,Kilman,West Ham,82,DEF,45,a
+567,Toti,Wolves,82,DEF,45,a
+506,Van de Ven,Spurs,81,DEF,45,a
+81,Smith,Bournemouth,80,DEF,45,a
+148,Welbeck,Brighton,79,ATT,55,a
+198,Edouard,Crystal Palace,79,ATT,55,a
+505,Udogie,Spurs,79,DEF,50,a
+512,Antonio,West Ham,78,ATT,55,a
+57,Tielemans,Aston Villa,77,MID,55,a
+64,Cook,Bournemouth,77,MID,50,a
+104,Pinnock,Brentford,77,DEF,45,a
+168,Enzo,Chelsea,77,MID,50,a
+357,McAtee,Man City,77,MID,50,a
+378,Mainoo,Man Utd,77,MID,55,a
+391,Almiron,Newcastle,77,MID,60,a
+533,Ait-Nouri,Wolves,77,DEF,45,a
+177,Madueke,Chelsea,76,MID,65,a
+229,Maupay,Everton,76,ATT,50,a
+238,Young,Everton,76,DEF,45,a
+322,Gomez,Liverpool,76,DEF,50,a
+335,Robertson,Liverpool,76,DEF,60,a
+532,Zouma,West Ham,76,DEF,45,a
+105,Roerslev,Brentford,75,DEF,45,a
+396,Dubravka,Newcastle,75,GK,45,a
+553,J.Gomes,Wolves,75,MID,50,a
+101,Norgaard,Brentford,74,MID,50,a
+136,Mitoma,Brighton,74,MID,65,a
+171,Gusto,Chelsea,74,DEF,50,a
+496,Reguilon,Spurs,74,DEF,45,a
+98,Lewis-Potter,Brentford,73,MID,50,a
+222,Gana,Everton,73,MID,50,a
+377,Maguire,Man Utd,73,DEF,50,a
+252,Raul,Fulham,72,ATT,55,a
+11,Nketiah,Arsenal,71,ATT,60,a
+167,Disasi,Chelsea,71,DEF,45,a
+183,Petrovic,Chelsea,71,GK,45,a
+22,Tomiyasu,Arsenal,70,DEF,50,a
+243,Cairney,Fulham,70,MID,50,a
+522,Foderingham,West Ham,70,GK,45,a
+123,Ferguson,Brighton,69,ATT,55,i
+421,Wilson,Newcastle,69,ATT,70,d
+542,Dawson,Wolves,69,DEF,45,a
+86,Ajer,Brentford,68,DEF,45,a
+146,Verbruggen,Brighton,68,GK,45,a
+204,Johnstone,Crystal Palace,68,GK,45,a
+8,Kiwior,Arsenal,67,DEF,50,a
+424,Awoniyi,Nott'm Forest,67,ATT,60,a
+431,Dominguez,Nott'm Forest,67,MID,50,a
+233,Onana,Aston Villa,66,MID,50,a
+187,Tosin,Chelsea,66,DEF,45,a
+200,Guehi,Crystal Palace,66,DEF,45,a
+214,Schlupp,Crystal Palace,66,MID,50,a
+241,Bassey,Fulham,66,DEF,45,a
+162,Colwill,Chelsea,65,DEF,45,a
+429,Danilo,Nott'm Forest,65,MID,50,a
+32,Cash,Aston Villa,64,DEF,45,a
+206,Lerma,Crystal Palace,64,MID,50,a
+392,Barnes,Newcastle,64,MID,65,a
+559,N.Semedo,Wolves,63,DEF,45,s
+194,C.Richards,Crystal Palace,62,DEF,45,a
+376,Lindelof,Man Utd,62,DEF,45,a
+584,Brereton Diaz,Southampton,62,MID,55,a
+511,Alvarez,West Ham,62,MID,50,a
+124,Gilmour,Brighton,61,MID,50,a
+144,Van Hecke,Brighton,61,DEF,45,a
+203,Hughes,Crystal Palace,61,MID,50,a
+76,Philip,Bournemouth,60,MID,50,a
+70,Kerkez,Bournemouth,59,DEF,45,a
+185,Sanchez,Chelsea,59,GK,45,a
+354,Kovacic,Man City,59,MID,55,a
+449,Yates,Nott'm Forest,59,MID,50,a
+368,Casemiro,Man Utd,58,MID,50,a
+425,Boly,Nott'm Forest,58,DEF,45,a
+436,Murillo,Nott'm Forest,58,DEF,45,a
+108,Toney,Brentford,57,ATT,75,a
+117,Buonanotte,Brighton,57,MID,50,a
+122,Estupinan,Brighton,57,DEF,50,i
+413,Pope,Newcastle,57,GK,50,a
+74,O.Dango,Bournemouth,56,MID,50,a
+211,Munoz,Crystal Palace,56,DEF,50,a
+326,Konate,Liverpool,56,DEF,50,a
+35,Diego Carlos,Aston Villa,55,DEF,45,a
+215,Ward,Crystal Palace,54,DEF,45,a
+362,Stones,Man City,53,DEF,55,a
+196,Clyne,Crystal Palace,52,DEF,45,a
+355,Lewis,Man City,52,DEF,45,a
+444,Toffolo,Nott'm Forest,52,DEF,45,a
+393,Botman,Newcastle,51,DEF,45,i
+38,Duran,Aston Villa,50,ATT,60,a
+164,D.D.Fofana,Chelsea,50,ATT,55,a
+216,Wharton,Crystal Palace,50,MID,50,a
+218,Beto,Everton,50,ATT,50,a
+313,Bradley,Liverpool,50,DEF,50,a
+349,Grealish,Man City,50,MID,65,a
+26,Alex Moreno,Aston Villa,49,DEF,45,a
+145,Veltman,Brighton,49,DEF,45,a
+333,Quansah,Liverpool,49,DEF,45,a
+371,Evans,Man Utd,49,DEF,45,a
+201,Henderson,Crystal Palace,48,GK,45,a
+337,Tsimikas,Liverpool,48,DEF,50,a
+370,Eriksen,Man Utd,48,MID,55,a
+404,Kelly,Newcastle,48,DEF,45,a
+254,Reed,Fulham,47,MID,50,a
+568,Muric,Ipswich,47,GK,45,a
+320,Endo,Liverpool,47,MID,50,a
+365,Antony,Man Utd,47,MID,60,a
+388,Wan-Bissaka,Man Utd,47,DEF,45,a
+475,Taylor,Southampton,47,DEF,40,a
+493,Lo Celso,Spurs,47,MID,50,a
+407,Lascelles,Newcastle,46,DEF,45,i
+509,Werner,Spurs,46,MID,65,a
+89,Damsgaard,Brentford,45,MID,50,a
+323,Gravenberch,Liverpool,45,MID,50,a
+403,Joelinton,Newcastle,45,MID,60,a
+409,Livramento,Newcastle,45,DEF,45,a
+422,Aina,Nott'm Forest,45,DEF,45,a
+535,Bellegarde,Wolves,45,MID,50,a
+7,Jorginho,Arsenal,44,MID,50,a
+163,Cucurella,Chelsea,44,DEF,50,a
+411,Miley,Newcastle,44,MID,50,i
+482,Bissouma,Spurs,44,MID,50,a
+80,Sinisterra,Bournemouth,43,MID,50,a
+245,Diop,Fulham,43,DEF,45,a
+249,Lukic,Fulham,43,MID,50,a
+126,Hinshelwood,Brighton,42,MID,50,a
+142,Steele,Brighton,42,GK,45,a
+423,Anderson,Nott'm Forest,42,MID,50,a
+77,Scott,Bournemouth,41,MID,50,a
+445,Turner,Nott'm Forest,41,GK,40,a
+543,Doherty,Wolves,41,DEF,45,a
+42,Kamara,Aston Villa,40,MID,50,i
+65,Enes Unal,Bournemouth,40,ATT,55,a
+253,Ream,Fulham,40,DEF,45,u
+324,Jones,Liverpool,40,MID,55,a
+528,Mavropanos,West Ham,40,DEF,45,a
+100,Mee,Brentford,39,DEF,45,a
+102,Onyeka,Brentford,39,MID,50,a
+132,March,Brighton,39,MID,65,i
+159,Chalobah,Chelsea,39,DEF,45,a
+437,N.Williams,Nott'm Forest,39,DEF,45,a
+490,Hojbjerg,Spurs,39,MID,50,u
+399,Hall,Newcastle,38,DEF,45,a
+544,Doyle,Wolves,38,MID,50,a
+128,Igor,Brighton,37,DEF,45,a
+239,Adama,Fulham,36,MID,50,a
+523,Ings,West Ham,36,ATT,50,a
+529,N.Aguerd,West Ham,36,DEF,45,a
+54,Rogers,Aston Villa,35,MID,50,a
+153,B.Badiashile,Chelsea,35,DEF,45,a
+156,Broja,Chelsea,35,ATT,55,a
+115,Baleba,Brighton,34,MID,50,a
+234,Patterson,Everton,34,DEF,45,a
+325,Kelleher,Liverpool,34,GK,45,a
+443,Sels,Nott'm Forest,34,GK,45,a
+484,Davies,Spurs,34,DEF,45,a
+106,Schade,Brentford,33,MID,55,a
+111,Yarmoliuk,Brentford,33,MID,45,a
+405,Krafth,Newcastle,33,DEF,45,a
+356,Matheus N.,Man City,32,MID,50,a
+480,Bentancur,Spurs,32,MID,50,a
+131,Lamptey,Brighton,31,DEF,45,a
+387,Shaw,Man Utd,31,DEF,50,a
+221,Coleman,Everton,30,DEF,45,a
+343,Bobb,Man City,30,MID,50,a
+463,Lallana,Southampton,30,MID,50,a
+53,Ramsey,Aston Villa,29,MID,55,a
+112,Zanka,Brentford,29,DEF,45,a
+181,Nkunku,Chelsea,29,MID,65,a
+549,H.Bueno,Wolves,29,DEF,45,a
+59,Aarons,Bournemouth,28,DEF,45,a
+134,Milner,Brighton,28,MID,50,a
+257,Tete,Fulham,27,DEF,45,a
+487,E.Royal,Spurs,27,DEF,45,a
+147,Webster,Brighton,26,DEF,45,a
+19,Smith Rowe,Fulham,25,MID,55,a
+442,Sangare,Nott'm Forest,25,MID,45,a
+534,B.Traore,Wolves,25,MID,50,a
+1,Fabio Vieira,Arsenal,24,MID,55,a
+20,Thomas,Arsenal,24,MID,50,a
+160,Chilwell,Chelsea,24,DEF,50,a
+521,Fabianski,West Ham,24,GK,40,a
+555,Kalajdzic,Wolves,24,ATT,50,a
+62,Brooks,Bournemouth,23,MID,50,a
+364,Amad,Man Utd,23,MID,50,a
+382,Mount,Man Utd,23,MID,65,a
+258,Vinicius,Fulham,22,ATT,50,a
+358,Ortega Moreno,Man City,22,GK,55,a
+501,Skipp,Spurs,22,MID,50,a
+137,Moder,Brighton,21,MID,45,a
+193,C.Doucoure,Crystal Palace,21,MID,50,a
+14,Ramsdale,Arsenal,20,GK,45,a
+33,Dendoncker,Aston Villa,20,MID,45,a
+121,Enciso,Brighton,20,MID,55,a
+170,Gilchrist,Chelsea,20,DEF,40,u
+84,Travers,Bournemouth,19,GK,45,a
+37,Dobbin,Aston Villa,18,MID,50,u
+228,Keane,Everton,18,DEF,40,a
+420,Willock,Newcastle,18,MID,50,a
+536,Bentley,Wolves,18,GK,40,a
+51,Olsen,Aston Villa,17,GK,45,a
+93,Hickey,Brentford,17,DEF,45,a
+275,Johnson,Ipswich,17,DEF,40,a
+10,Nelson,Arsenal,16,MID,50,a
+72,Mepham,Bournemouth,16,DEF,45,a
+161,Chukwuemeka,Chelsea,16,MID,50,a
+190,Ahamada,Crystal Palace,16,MID,45,a
+208,M.Franca,Crystal Palace,16,MID,45,a
+237,Y. Chermiti,Everton,16,ATT,50,d
+417,Tonali,Newcastle,16,MID,55,s
+380,Martinez,Man Utd,15,DEF,45,a
+119,Dahoud,Brighton,14,MID,50,a
+486,Dragusin,Spurs,14,DEF,45,a
+502,Solomon,Spurs,14,MID,55,a
+92,Henry,Brentford,13,DEF,45,a
+188,Ugochukwu,Chelsea,13,MID,45,a
+384,Pellistri,Man Utd,13,MID,50,a
+448,Worrall,Nott'm Forest,13,DEF,45,a
+515,Cornet,West Ham,13,MID,50,a
+564,S.Bueno,Wolves,13,DEF,45,a
+412,Odysseas,Newcastle,12,GK,45,a
+483,Bryan,Spurs,12,MID,50,u
+45,Maatsen,Aston Villa,11,DEF,50,a
+158,Casadei,Chelsea,11,MID,45,a
+172,James,Chelsea,11,DEF,50,s
+373,Hannibal,Man Utd,11,MID,45,a
+440,Omobamidele,Nott'm Forest,11,DEF,45,a
+507,Veliz,Spurs,11,ATT,50,a
+226,Iroegbunam,Everton,10,MID,45,a
+359,Phillips,Man City,10,MID,50,a
+517,Cresswell,West Ham,10,DEF,40,a
+212,Ozoh,Crystal Palace,8,MID,45,u
+213,Rak-Sakyi,Crystal Palace,8,MID,45,a
+519,Earthy,West Ham,8,MID,45,a
+538,Chirewa,Wolves,8,MID,45,a
+545,Fabio Silva,Wolves,8,ATT,50,a
+305,Thomas,Leicester,7,DEF,40,a
+546,Fraser,Wolves,7,ATT,45,a
+60,Adams,Bournemouth,5,MID,50,i
+68,Hill,Bournemouth,5,DEF,40,a
+116,Barco,Brighton,5,DEF,40,a
+315,Clark,Liverpool,5,MID,45,a
+539,Chiwome,Wolves,5,ATT,45,a
+66,Faivre,Bournemouth,4,MID,50,a
+114,Baker-Boaitey,Brighton,4,MID,45,a
+139,Offiah,Brighton,4,DEF,40,a
+500,Scarlett,Spurs,4,ATT,45,a
+43,Kesler-Hayden,Aston Villa,3,DEF,40,u
+61,Anthony,Bournemouth,3,MID,45,a
+67,H.Traore,Bournemouth,3,MID,45,a
+90,Dasilva,Brentford,3,MID,50,a
+103,Peart-Harris,Brentford,3,MID,45,a
+330,McConnell,Liverpool,3,MID,45,a
+386,Sancho,Man Utd,3,MID,65,a
+419,White,Newcastle,3,MID,45,a
+138,O'Mahony,Brighton,2,ATT,45,a
+165,Deivid,Chelsea,2,ATT,50,a
+173,Kellyman,Chelsea,2,MID,45,a
+246,Harris,Fulham,2,MID,45,u
+390,A.Murphy,Newcastle,2,DEF,40,a
+416,Targett,Newcastle,2,DEF,40,a
+12,Nwaneri,Arsenal,1,MID,45,a
+69,Jebbison,Bournemouth,1,ATT,45,a
+150,Andrey Santos,Chelsea,1,MID,45,u
+174,Lavia,Chelsea,1,MID,45,a
+209,Matthews,Crystal Palace,1,GK,40,a
+225,Holgate,Everton,1,DEF,40,a
+312,Bajcetic,Liverpool,1,MID,45,a
+318,Doak,Liverpool,1,MID,45,a
+547,Gonzalez,Wolves,1,MID,45,i
+5,Hein,Arsenal,0,GK,40,a
+6,J.Timber,Arsenal,0,DEF,55,a
+21,Tierney,Arsenal,0,DEF,45,a
+578,Calafiori,Arsenal,0,DEF,60,a
+30,Barrenechea,Aston Villa,0,MID,50,a
+31,Buendia,Aston Villa,0,MID,55,a
+39,Gauci,Aston Villa,0,GK,40,a
+40,Hause,Aston Villa,0,DEF,40,a
+41,Iling Jr,Aston Villa,0,MID,55,a
+46,Marschall,Aston Villa,0,GK,40,u
+49,Mings,Aston Villa,0,DEF,45,i
+50,Nedeljkovic,Aston Villa,0,DEF,40,a
+55,Sinisalo,Aston Villa,0,GK,40,u
+56,Sousa,Aston Villa,0,DEF,40,a
+569,Jaden,Aston Villa,0,MID,55,a
+75,Paulsen,Bournemouth,0,GK,40,a
+580,Huijsen,Bournemouth,0,DEF,45,a
+87,Brierley,Brentford,0,MID,45,a
+96,Ji-soo,Brentford,0,DEF,40,a
+97,Konak,Brentford,0,MID,45,a
+107,Thiago,Brentford,0,ATT,60,i
+109,Valdimarsson,Brentford,0,GK,40,a
+118,Cozier-Duberry,Brighton,0,MID,45,a
+127,I.Osman,Brighton,0,MID,50,a
+130,Kozlowski,Brighton,0,MID,45,u
+133,Mazilu,Brighton,0,MID,45,a
+135,Minteh,Brighton,0,MID,55,a
+140,Peupion,Brighton,0,MID,45,a
+141,Sarmiento,Brighton,0,MID,50,a
+143,Undav,Brighton,0,ATT,55,a
+149,Wieffer,Brighton,0,MID,50,a
+151,Angelo,Chelsea,0,MID,45,a
+152,Arrizabalaga,Chelsea,0,GK,45,a
+154,Bergstrom,Chelsea,0,GK,40,a
+166,Dewsbury-Hall,Chelsea,0,MID,60,a
+175,Lukaku,Chelsea,0,ATT,65,a
+176,M.Sarr,Chelsea,0,DEF,45,u
+178,Marc Guiu,Chelsea,0,ATT,50,a
+184,Renato Veiga,Chelsea,0,MID,45,a
+189,W.Fofana,Chelsea,0,DEF,45,a
+575,Wiley,Chelsea,0,DEF,40,a
+581,Jorgensen,Chelsea,0,GK,45,a
+195,Chadi Riad,Crystal Palace,0,DEF,45,a
+197,Ebiowei,Crystal Palace,0,MID,45,u
+202,Holding,Crystal Palace,0,DEF,45,a
+205,Kamada,Crystal Palace,0,MID,55,a
+585,I.Sarr,Crystal Palace,0,MID,60,a
+227,J.Virginia,Everton,0,GK,40,a
+232,Ndiaye,Everton,0,ATT,55,a
+577,Lindstrom,Everton,0,MID,55,a
+582,O'Brien,Everton,0,DEF,50,a
+242,Benda,Fulham,0,GK,40,a
+250,Mbabu,Fulham,0,DEF,40,a
+256,Stansfield,Fulham,0,ATT,50,a
+579,Sessegnon,Fulham,0,DEF,45,a
+586,J.Cuenca,Fulham,0,DEF,45,a
+260,Al-Hamadi,Ipswich,0,ATT,50,a
+261,Baggott,Ipswich,0,DEF,40,u
+262,Broadhead,Ipswich,0,MID,50,i
+263,Burgess,Ipswich,0,DEF,40,a
+264,Burns,Ipswich,0,MID,50,a
+265,Chaplin,Ipswich,0,MID,55,a
+266,Clarke,Ipswich,0,DEF,40,d
+267,Davis,Ipswich,0,DEF,45,a
+268,Delap,Ipswich,0,ATT,55,a
+269,Edmundson,Ipswich,0,DEF,40,a
+270,Greaves,Ipswich,0,DEF,40,a
+271,Harness,Ipswich,0,MID,50,a
+272,Hirst,Ipswich,0,ATT,55,a
+273,Humphreys,Ipswich,0,MID,45,a
+274,Hutchinson,Ipswich,0,MID,55,a
+276,Ladapo,Ipswich,0,ATT,45,a
+277,Luongo,Ipswich,0,MID,45,a
+278,Morsy,Ipswich,0,MID,50,a
+279,Ndaba,Ipswich,0,DEF,40,u
+280,Slicker,Ipswich,0,GK,40,a
+281,Taylor,Ipswich,0,MID,50,a
+282,Tuanzebe,Ipswich,0,DEF,40,a
+283,Walton,Ipswich,0,GK,45,a
+284,Woolfenden,Ipswich,0,DEF,40,a
+583,Townsend,Ipswich,0,DEF,40,a
+285,B.Soumare,Leicester,0,MID,45,a
+286,Cannon,Leicester,0,ATT,45,a
+287,Choudhury,Leicester,0,MID,45,a
+288,Coady,Leicester,0,DEF,40,a
+289,Daka,Leicester,0,ATT,50,a
+291,Faes,Leicester,0,DEF,40,a
+292,Golding,Leicester,0,MID,45,a
+293,Hermansen,Leicester,0,GK,45,a
+294,Iversen,Leicester,0,GK,40,a
+295,Justin,Leicester,0,DEF,45,a
+296,Kristiansen,Leicester,0,DEF,45,a
+297,Marcal,Leicester,0,MID,45,a
+298,Mavididi,Leicester,0,MID,55,a
+299,McAteer,Leicester,0,MID,50,a
+300,Ndidi,Leicester,0,MID,50,a
+301,Okoli,Leicester,0,DEF,40,a
+302,Ricardo,Leicester,0,DEF,45,a
+303,Souttar,Leicester,0,DEF,40,u
+304,Stolarczyk,Leicester,0,GK,40,i
+306,Vardy,Leicester,0,ATT,55,a
+307,Vestergaard,Leicester,0,DEF,40,a
+308,Ward,Leicester,0,GK,40,a
+309,Winks,Leicester,0,MID,45,a
+570,A.Fatawu,Leicester,0,MID,55,a
+314,Carvalho,Liverpool,0,MID,50,a
+331,Morton,Liverpool,0,MID,45,a
+332,N.Phillips,Liverpool,0,DEF,40,a
+334,R.Williams,Liverpool,0,DEF,40,a
+338,Van den Berg,Liverpool,0,DEF,40,a
+344,Carson,Man City,0,GK,40,a
+353,Joao Cancelo,Man City,0,DEF,55,a
+571,Savio,Man City,0,MID,65,a
+367,Bayindir,Man Utd,0,GK,45,a
+374,Heaton,Man Utd,0,GK,40,a
+379,Malacia,Man Utd,0,DEF,45,i
+389,Zirkzee,Man Utd,0,ATT,70,a
+572,Yoro,Man Utd,0,DEF,45,i
+397,Fraser,Newcastle,0,MID,50,a
+400,Hayden,Newcastle,0,MID,45,a
+406,Kuol,Newcastle,0,MID,45,a
+408,Lewis,Newcastle,0,DEF,40,a
+414,Ruddy,Newcastle,0,GK,40,a
+574,Pivas,Newcastle,0,DEF,40,a
+426,Bowler,Nott'm Forest,0,MID,45,a
+427,C.Miguel,Nott'm Forest,0,GK,45,a
+428,Da Silva Moreira,Nott'm Forest,0,MID,45,a
+430,Dennis,Nott'm Forest,0,ATT,50,a
+435,Mighten,Nott'm Forest,0,MID,45,a
+438,O.Richards,Nott'm Forest,0,DEF,45,a
+439,O'Brien,Nott'm Forest,0,MID,50,u
+441,Panzo,Nott'm Forest,0,DEF,40,u
+446,Ui-jo,Nott'm Forest,0,ATT,45,a
+573,Milenkovic,Nott'm Forest,0,DEF,45,a
+450,Alcaraz,Southampton,0,MID,50,a
+451,Amo-Ameyaw,Southampton,0,MID,45,a
+452,Aribo,Southampton,0,MID,50,a
+453,Armstrong,Southampton,0,ATT,55,a
+454,Bazunu,Southampton,0,GK,45,a
+455,Bednarek,Southampton,0,DEF,40,a
+456,Bella-Kotchap,Southampton,0,DEF,40,a
+457,Bree,Southampton,0,DEF,40,a
+458,Charles,Southampton,0,MID,45,a
+459,Edozie,Southampton,0,MID,50,a
+460,Edwards,Southampton,0,DEF,40,a
+461,Harwood-Bellis,Southampton,0,DEF,40,a
+462,Kamaldeen,Southampton,0,MID,50,i
+464,Larios,Southampton,0,DEF,40,a
+465,Lis,Southampton,0,GK,40,a
+466,Lumley,Southampton,0,GK,40,a
+467,Manning,Southampton,0,DEF,45,a
+468,Mara,Southampton,0,ATT,50,a
+469,McCarthy,Southampton,0,GK,45,a
+470,Onuachu,Southampton,0,ATT,50,a
+471,Smallbone,Southampton,0,MID,50,a
+472,Stephens,Southampton,0,DEF,40,a
+473,Stewart,Southampton,0,ATT,45,a
+474,Sugawara,Southampton,0,DEF,45,a
+476,Walker-Peters,Southampton,0,DEF,45,a
+477,Wood,Southampton,0,DEF,40,a
+518,Downes,Southampton,0,MID,50,a
+478,A.Phillips,Spurs,0,DEF,40,a
+479,Austin,Spurs,0,GK,40,a
+481,Bergvall,Spurs,0,MID,45,a
+485,Devine,Spurs,0,MID,45,a
+488,Forster,Spurs,0,GK,45,a
+489,Gray,Spurs,0,MID,50,a
+504,Spence,Spurs,0,DEF,45,a
+510,Whiteman,Spurs,0,GK,40,a
+526,L.Guilherme,West Ham,0,MID,50,a
+576,Irving,West Ham,0,MID,50,a
+587,Summerville,West Ham,0,MID,60,a
+588,G.Rodriguez,West Ham,0,MID,50,a
+589,Fullkrug,West Ham,0,ATT,70,a
+537,Chiquinho,Wolves,0,MID,45,a
+540,Cundle,Wolves,0,MID,45,a
+548,Guedes,Wolves,0,MID,55,a
+551,Hodge,Wolves,0,MID,45,a
+552,Hoever,Wolves,0,DEF,40,a
+556,King,Wolves,0,GK,40,a
+558,Mosquera,Wolves,0,DEF,40,a
+561,Pedro Lima,Wolves,0,DEF,40,a
+562,Podence,Wolves,0,MID,55,a
+563,R.Gomes,Wolves,0,MID,55,a
+566,Strand Larsen,Wolves,0,ATT,55,a
+155,Bettinelli,Chelsea,-1,GK,40,a

@@ -21,21 +21,11 @@
           </div>
       
           <div class="row g-5">
-            <div class="col-md-6 col-lg-6">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
               <form class="needs-validation" novalidate>
                 <div class="row g-3">
-                  <div class="col-12">
-                    <div class="mb-3">
-                      <label for="csvFile" class="form-label">Upload your CSV file of Players</label>
-                      <input class="form-control" type="file" id="csvFile" accept = ".csv" required >
-                      <div id="csvFileHelp" class="form-text">CSV should include the following columns: name, score, position, price. Position should have the following values: ATT, MID, DEF, GK.</div>
-      
-                      <div class="invalid-feedback">
-                      Please select a valid CSV file.
-                    </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
+                  
+                  <!-- <div class="col-sm-6">
                     <label for="Formation" class="form-label">Formation</label>
                     <select class="form-select" id="Formation" required>
                       <option value="">GK-DEF-MID-ATT</option>
@@ -51,17 +41,38 @@
                       Please select a valid formation.
                     </div>
                     <div id="FormationHelp" class="form-text">GK-DEF-MID-ATT</div>
-                  </div>
+                  </div> -->
       
-                  <div class="col-sm-6">
+                  <!-- <div class="col-sm-6"> -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <label for="Budget" class="form-label">Budget</label>
                     <input type="number" class="form-control" id="Budget" placeholder="0" value="" required>
-                    <div id="BudgetHelp" class="form-text">Enter the budget in the same unit as your CSV file.</div>
+                    <div id="BudgetHelp" class="form-text">Enter the budget for your team.</div>
                     <div class="invalid-feedback">
                       Valid budget is required.
                     </div>
-                  </div>
-      
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="mb-3">
+                      <label for="playerSearch" class="form-label">Select your Players</label><br>
+                      <!-- <input class="form-control" type="file" id="csvFile" accept = ".csv" required > -->
+                      <!-- <div id="csvFileHelp" class="form-text">CSV should include the following columns: name, score, position, price. Position should have the following values: ATT, MID, DEF, GK.</div> -->
+                      <div id = "inputs">
+                        <input type="text" id="playerSearch" class="form-control" placeholder="Search player..." onkeyup="showSuggestions()">
+                        <select class="form-select" id="positionSearch" onchange="showSuggestions()">
+                            <option value="">All Position</option>
+                            <option value="GK">GK</option>
+                            <option value="MID">MID</option>
+                            <option value="DEF">DEF</option>
+                            <option value="ATT">ATT</option>
+                          </select>
+                     </div>
+                      <div id="suggestions" class="suggestions-box"></div>
+                      <!-- <div class="invalid-feedback">
+                      Please select a valid CSV file.
+                      </div> -->
+                    </div>
+                </div>
                 </div>
       
                 <hr class="my-4">
@@ -70,21 +81,40 @@
                     <span id = "textBtn">Get the Best Team</span>
                     <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </button><br>
-                <div id="BtnHelp" class="form-text">Change the formation or budget to get a new result.</div>
+                <div id="BtnHelp" class="form-text">Change the players or budget to get a new result.</div>
                 <div class="alert alert-danger alert-dismissible fade show" id = "invalidTeam">
                     <strong>No team can be made.</strong>
                 </div>
               </form>
             </div>
       
-            <div class="col-md-6 col-lg-6" id = "top200">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id = "top200">
               <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-primary">Your Top 200 Players</span> 
+                <span class="text-primary">Your Player Pool</span> 
               </h4>
-              <span class="form-text">Top 50 per position</span>
+              <div style = "text-align: right; margin:10px">
+                <span class = "badge bg-danger">GK - <span id = "GKnum">0</span></span>
+                <span class = "badge bg-warning">MID - <span id = "MIDnum">0</span></span>
+                <span class = "badge bg-success">DEF - <span id = "DEFnum">0</span></span>
+                <span class = "badge bg-primary">ATT - <span id = "ATTnum">0</span></span>
+              </div>
+              
+              <table id="selectedPlayersTable" class="table caption-top table-hover">
+                <thead>
+                    <tr>
+                        <th id = "positionHeader">Position</th>
+                        <th id = "nameHeader">Name</th>
+                        <th id = "priceHeader">Price</th>
+                        <th id = "pointsHeader">Points</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
             </div>
             <hr class="my-4">
-            <div class="col-md-12 col-lg-12" id = "bestTeam">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id = "bestTeam">
               <h4 class="justify-content-between align-items-center mb-3">
                 <span class="text-primary">Your Best Teams</span>
                 <span class="badge rounded-pill bg-primary" id = "TeamsListNum">0</span>
@@ -98,9 +128,360 @@
        
         
       </div>
-      <!-- <div id = "status"></div>
-      <div id = "csvContent"></div> -->
+
+      
     <script>
+       
+    const testPlayers = [{"id":182,"name":"Palmer","points":"217","position":"MID","price":105,"team":"Chelsea"},{"id":351,"name":"Haaland","points":"244","position":"ATT","price":150,"team":"Man City"},{"id":328,"name":"M.Salah","points":"211","position":"MID","price":125,"team":"Liverpool"},{"id":17,"name":"Saka","points":"226","position":"MID","price":100,"team":"Arsenal"},{"id":401,"name":"Isak","points":"172","position":"ATT","price":85,"team":"Newcastle"},{"id":366,"name":"B.Fernandes","points":"166","position":"MID","price":85,"team":"Man Utd"},{"id":13,"name":"Odegaard","points":"186","position":"MID","price":85,"team":"Arsenal"},{"id":503,"name":"Son","points":"213","position":"MID","price":100,"team":"Spurs"},{"id":348,"name":"Foden","points":"230","position":"MID","price":95,"team":"Man City"},{"id":58,"name":"Watkins","points":"228","position":"ATT","price":90,"team":"Aston Villa"},{"id":327,"name":"Luis Diaz","points":"142","position":"MID","price":75,"team":"Liverpool"},{"id":125,"name":"Gross","points":"153","position":"MID","price":65,"team":"Brighton"},{"id":4,"name":"Havertz","points":"180","position":"ATT","price":80,"team":"Arsenal"},{"id":82,"name":"Solanke","points":"137","position":"ATT","price":75,"team":"Bournemouth"},{"id":514,"name":"Bowen","points":"136","position":"MID","price":75,"team":"West Ham"},{"id":180,"name":"N.Jackson","points":"136","position":"ATT","price":75,"team":"Chelsea"},{"id":199,"name":"Eze","points":"135","position":"MID","price":70,"team":"Crystal Palace"},{"id":108,"name":"Toney","points":"135","position":"ATT","price":75,"team":"Brentford"},{"id":3,"name":"Gabriel","points":"133","position":"DEF","price":60,"team":"Arsenal"},{"id":345,"name":"De Bruyne","points":"133","position":"MID","price":95,"team":"Man City"},{"id":494,"name":"Maddison","points":"132","position":"MID","price":75,"team":"Spurs"},{"id":352,"name":"J.Alvarez","points":"131","position":"ATT","price":70,"team":"Man City"},{"id":311,"name":"Alexander-Arnold","points":"131","position":"DEF","price":70,"team":"Liverpool"},{"id":275,"name":"Johnson","points":"131","position":"DEF","price":40,"team":"Ipswich"},{"id":568,"name":"Muric","points":"47","position":"GK","price":45,"team":"Ipswich"},{"id":91,"name":"Flekken","points":"119","position":"GK","price":45,"team":"Brentford"},{"id":146,"name":"Verbruggen","points":"68","position":"GK","price":45,"team":"Brighton"},{"id":554,"name":"Jose Sa","points":"107","position":"GK","price":45,"team":"Wolves"},{"id":47,"name":"Martinez","points":"115","position":"GK","price":50,"team":"Aston Villa"},{"id":508,"name":"Vicario","points":"112","position":"GK","price":50,"team":"Spurs"},{"id":248,"name":"Leno","points":"133","position":"GK","price":50,"team":"Fulham"},{"id":513,"name":"Areola","points":"116","position":"GK","price":45,"team":"West Ham"},{"id":24,"name":"White","points":"182","position":"DEF","price":65,"team":"Arsenal"},{"id":350,"name":"Gvardiol","points":"123","position":"DEF","price":60,"team":"Man City"},{"id":18,"name":"Saliba","points":"164","position":"DEF","price":60,"team":"Arsenal"},{"id":335,"name":"Robertson","points":"76","position":"DEF","price":60,"team":"Liverpool"},{"id":340,"name":"Akanji","points":"112","position":"DEF","price":55,"team":"Man City"},{"id":418,"name":"Trippier","points":"111","position":"DEF","price":60,"team":"Newcastle"},{"id":363,"name":"Walker","points":"123","position":"DEF","price":55,"team":"Man City"}]
+    
+    var debug = false;
+    
+    const players = []
+    const selectedPlayers = [];
+    
+fetch('/printTable', {
+        method: 'POST',
+    })
+.then(response => response.json())
+.then(data => {
+    if (data.message) {
+        // document.getElementById('status').innerHTML = data.message;
+    }
+    if (data.players) {
+        // console.log(data.players)
+        for (let i = 0; i < data.players.length; i++) {
+            players.push(data.players[i]);
+        }
+        // console.log(players)
+
+        if (debug){
+            for (let num = 0; num < testPlayers.length; num++){
+                selectedPlayers.push(testPlayers[num])
+            }
+            // console.log(selectedPlayers)
+        }
+        
+
+        showSuggestions() 
+    }
+});
+var columns = [0, 0, 0, 0]
+var columnsHeader = ["positionHeader", "nameHeader", "priceHeader", "pointsHeader"]
+function sortTable(columnIndex) {
+    var table = document.getElementById("selectedPlayersTable");
+    var rows = Array.prototype.slice.call(table.querySelectorAll("tbody > tr"));
+
+    rows.sort(function(rowA, rowB) {
+    var cellA = rowA.cells[columnIndex].textContent;
+    var cellB = rowB.cells[columnIndex].textContent;
+
+    if (!isNaN(cellA) && !isNaN(cellB)) {
+        return cellA - cellB;
+    }
+
+    return cellA.localeCompare(cellB);
+    });
+    
+    if (columns[columnIndex]== 1){
+        rows.reverse()
+    }
+    $("#"+columnsHeader[columnIndex]).find('.fa').remove()
+
+    if (columns[columnIndex]== 0){
+        columns[columnIndex]=1
+        $("#"+columnsHeader[columnIndex]).append( "<i class='fa fa-sort-desc'></i>" )
+    } else if (columns[columnIndex]== 1){
+        columns[columnIndex]=-1
+        $("#"+columnsHeader[columnIndex]).append( "<i class='fa fa-sort-asc'></i>" )
+    } else if (columns[columnIndex]== -1){
+        columns[columnIndex]=1
+        $("#"+columnsHeader[columnIndex]).append( "<i class='fa fa-sort-desc'></i>" )
+    }
+    rows.forEach(function(row) {
+    table.querySelector("tbody").appendChild(row);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("positionHeader").addEventListener("click", function() {
+    sortTable(0);
+    });
+    document.getElementById("nameHeader").addEventListener("click", function() {
+    sortTable(1);
+    });
+    document.getElementById("priceHeader").addEventListener("click", function() {
+    sortTable(2);
+    });
+    document.getElementById("pointsHeader").addEventListener("click", function() {
+    sortTable(3);
+    });
+});
+$("#positionHeader").mouseenter(function(){
+    $("#positionHeader").find('.fa').remove()
+    if (columns[0]== 0){
+        $("#positionHeader").append( "<i class='fa fa-sort-asc'></i>" )
+    } else if (columns[0]== 1){
+        $("#positionHeader").append( "<i class='fa fa-sort-desc'></i>" )
+    } else if (columns[0]== -1){
+        $("#positionHeader").append( "<i class='fa fa-sort-asc'></i>" )
+    }
+})
+$("#positionHeader").mouseleave(function(){
+    $("#positionHeader").find('.fa').remove()
+})
+$("#nameHeader").mouseenter(function(){
+    $("#nameHeader").find('.fa').remove()
+
+    if (columns[1]== 0){
+        $("#nameHeader").append( "<i class='fa fa-sort-asc'></i>" )
+    } else if (columns[1]== 1){
+        $("#nameHeader").append( "<i class='fa fa-sort-desc'></i>" )
+    } else if (columns[1]== -1){
+        $("#nameHeader").append( "<i class='fa fa-sort-asc'></i>" )
+    }
+})
+$("#nameHeader").mouseleave(function(){
+    $("#nameHeader").find('.fa').remove()
+})
+$("#priceHeader").mouseenter(function(){
+    $("#priceHeader").find('.fa').remove()
+
+    if (columns[2]== 0){
+        $("#priceHeader").append( "<i class='fa fa-sort-asc'></i>" )
+    } else if (columns[2]== 1){
+        $("#priceHeader").append( "<i class='fa fa-sort-desc'></i>" )
+    } else if (columns[2]== -1){
+        $("#priceHeader").append( "<i class='fa fa-sort-asc'></i>" )
+    }
+})
+$("#priceHeader").mouseleave(function(){
+    $("#priceHeader").find('.fa').remove()
+})
+$("#pointsHeader").mouseenter(function(){
+    $("#pointsHeader").find('.fa').remove()
+
+    if (columns[3]== 0){
+        $("#pointsHeader").append( "<i class='fa fa-sort-asc'></i>" )
+    } else if (columns[3]== 1){
+        $("#pointsHeader").append( "<i class='fa fa-sort-desc'></i>" )
+    } else if (columns[3]== -1){
+        $("#pointsHeader").append( "<i class='fa fa-sort-asc'></i>" )
+    }
+})
+$("#pointsHeader").mouseleave(function(){
+    $("#pointsHeader").find('.fa').remove()
+})
+
+
+function showSuggestions() {
+    const input = document.getElementById('playerSearch').value.toLowerCase();
+    const suggestionsBox = document.getElementById('suggestions');
+    suggestionsBox.innerHTML = '';
+    const inputPosition = document.getElementById("positionSearch").value
+    // console.log(inputPosition)
+    
+    const filteredPlayers = players.filter(player => player.name.toLowerCase().includes(input) && player.position.includes(inputPosition));
+
+    filteredPlayers.forEach(player => {
+        const suggestion = document.createElement('div');
+        suggestion.className = "PlayerSuggestion"
+        const playerName = document.createElement('span')
+        playerName.innerText = player.name
+        const playerPosition = document.createElement('span')
+        playerPosition.innerText = player.position
+        const playerPrice = document.createElement('span')
+        playerPrice.innerText = "£" + (player.price / 10).toFixed(1) + "m"
+        playerPrice.style.color = "#bbb";
+
+        suggestion.appendChild(playerName)
+        suggestion.appendChild(playerPosition)
+        suggestion.appendChild(playerPrice)
+        suggestion.onclick = () => addPlayer(player);
+        suggestionsBox.appendChild(suggestion);
+    });
+    
+}
+
+function addPlayer(player) {
+    if (selectedPlayers.find(p => p.name === player.name)) {
+        document.getElementById("invalidTeam").innerHTML = "Player already added."
+        $("#invalidTeam").animate({"opacity": 1}, 100, function(){
+            setTimeout(function(){$("#invalidTeam").animate({"opacity": 0})}, 2000)
+        });
+        return;
+    }
+
+    selectedPlayers.push(player);
+    updateSelectedPlayersTable();
+    // console.log(selectedPlayers)
+    // document.getElementById('playerSearch').value = '';
+    // document.getElementById('suggestions').innerHTML = '';
+}
+
+function updateSelectedPlayersTable() {
+    const tableBody = document.getElementById('selectedPlayersTable').querySelector('tbody');
+    player = selectedPlayers[selectedPlayers.length - 1]
+    // if(selectedPlayers.length > 1){                  
+    //     let checks = document.getElementsByClassName("fa-check-square")
+    //     for(let num = 0; num < checks.length; num++){
+    //         if(checks[num].parentElement.parentElement.querySelector('input') != undefined){
+    //             console.log("hello")
+    //             savePoints(checks[num].parentElement.parentElement.querySelector('input').id.substr(1))
+    //         }
+    //     }
+    // }
+
+    const row = document.createElement('tr');
+    const positionCell = document.createElement('td');
+    const badgeSpan = document.createElement('span');
+    badgeSpan.textContent = player.position;
+    badgeSpan.className = 'badge';
+
+    switch (player.position) {
+        case 'GK':
+            badgeSpan.classList.add('bg-danger');
+            break;
+        case 'DEF':
+            badgeSpan.classList.add('bg-success');
+            break;
+        case 'MID':
+            badgeSpan.classList.add('bg-warning');
+            break;
+        case 'ATT':
+            badgeSpan.classList.add('bg-primary');
+            break;
+    }
+    var curNumber = document.getElementById(player.position + "num").innerHTML
+    curNumber++ 
+    document.getElementById(player.position + "num").innerHTML = curNumber
+    $("#" + player.position + "num").animate({padding:"5px"}, "slow", "swing", function(){
+        $("#" + player.position + "num").animate({padding:"0px"}, "slow", "swing")
+    })
+
+    positionCell.appendChild(badgeSpan);
+    row.appendChild(positionCell);
+
+    const nameCell = document.createElement('td');
+    nameCell.innerText = player.name;
+    row.appendChild(nameCell);
+
+    
+    const priceCell = document.createElement('td');
+    priceCell.innerText = player.price / 10;
+    row.appendChild(priceCell);
+
+
+    const pointsCell = document.createElement('td');
+    pointsCell.className = 'points-cell'
+    pointsCell.id = "t" + player.id;
+    const pointsSpan = document.createElement('span');
+    pointsSpan.innerText = 0;
+    pointsSpan.className = 'points-text';
+    pointsCell.setAttribute('onclick','editPoints('+player.id+',true);')
+    
+
+    pointsCell.appendChild(pointsSpan);
+    row.appendChild(pointsCell);
+
+    
+    
+    const actionCell = document.createElement('td');
+
+    const editIcon = document.createElement('i');
+    editIcon.className = 'fa fa-pencil-square';
+    editIcon.setAttribute('onclick','editPoints('+player.id+', true);')
+    const checkIcon = document.createElement('i');
+    checkIcon.className = 'fa fa-check-square';
+    checkIcon.style.display = 'none';
+    checkIcon.setAttribute('onclick','savePoints('+player.id+');')
+
+
+    const crossIcon = document.createElement('i');
+    crossIcon.className = 'fa fa-minus-square';
+    crossIcon.setAttribute('onclick','removePlayer(this, "'+player.name+'");')
+
+
+    actionCell.appendChild(editIcon);
+    actionCell.appendChild(checkIcon);
+    actionCell.appendChild(crossIcon);
+    row.appendChild(actionCell);
+    tableBody.insertBefore(row, tableBody.firstChild)
+    editIcon.click()
+}
+
+function editPoints(playerID, focus) {
+    // console.log(playerID)
+    pointsCell = document.getElementById("t"+playerID)
+    pointsCell.setAttribute('onclick','')
+    pointsSpan = pointsCell.querySelector('span')
+    const input = document.createElement('input');
+    input.type = 'number';
+    if (pointsSpan != undefined){
+        input.value = pointsSpan.textContent;
+    }
+    input.className = 'points-input form-control';
+    input.id = "p" + playerID;
+    input.setAttribute('onfocus', 'editPoints('+playerID+', true)')
+    
+    if (pointsSpan != undefined){
+        pointsSpan.replaceWith(input);
+    }
+    
+    editIcon = pointsCell.parentElement.querySelector('.fa-pencil-square')
+    editIcon.style.display = 'none';
+    checkIcon = pointsCell.parentElement.querySelector('.fa-check-square')
+    checkIcon.style.display = 'inline';
+    document.getElementById("p" + playerID).focus()
+    document.getElementById("p" + playerID).select()
+    $("#p" + playerID).keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#p" + playerID).parent().parent().find('.fa-check-square').click()
+            const inputs = document.getElementsByClassName("points-input")
+            inputs[0].focus()
+           
+        }
+    });
+    
+    
+}
+
+function savePoints(playerID, btn) {
+    
+    // console.log(playerID)
+    pointsCell = document.getElementById("t"+playerID)
+    pointsCell.setAttribute('onclick','editPoints('+playerID+',true);')
+
+    playerPoints = document.getElementById("p"+playerID).value;
+    // console.log(playerPoints)
+    const pointsSpan = document.createElement('span');
+    pointsSpan.className = 'points-text';
+    pointsSpan.innerText = playerPoints;
+    document.getElementById("p"+playerID).replaceWith(pointsSpan);
+
+
+    editIcon = pointsCell.parentElement.querySelector('.fa-pencil-square')
+    editIcon.style.display = 'inline';
+    checkIcon = pointsCell.parentElement.querySelector('.fa-check-square')
+
+    checkIcon.style.display = 'none';
+    
+    const playerIndex = selectedPlayers.findIndex(player => player.id == playerID);
+    selectedPlayers[playerIndex].points = playerPoints
+    // console.log(selectedPlayers)
+}
+
+function removePlayer(r, playerName) {
+    var i = r.parentNode.parentNode.rowIndex;
+    document.getElementById("selectedPlayersTable").deleteRow(i);
+    const playerIndex = selectedPlayers.findIndex(player => player.name === playerName);
+    if (playerIndex !== -1) {
+        var curNumber = document.getElementById(selectedPlayers[playerIndex].position + "num").innerHTML
+        curNumber-- 
+        document.getElementById(selectedPlayers[playerIndex].position + "num").innerHTML = curNumber
+        selectedPlayers.splice(playerIndex, 1);
+    }
+    // console.log(selectedPlayers)
+}
         (function () {
         'use strict'
 
@@ -116,7 +497,21 @@
                     event.stopPropagation()
                 } else {
                     event.preventDefault();
-                    fetchData()
+                    const inputs = document.getElementsByClassName("points-input")
+                    if(selectedPlayers.length < 11){
+                        document.getElementById("invalidTeam").innerHTML = "Add more players."
+                        $("#invalidTeam").animate({"opacity": 1}, 100, function(){
+                            setTimeout(function(){$("#invalidTeam").animate({"opacity": 0})}, 2000)
+                        });
+                    } else if(inputs.length > 0){
+                        document.getElementById("invalidTeam").innerHTML = "Some of the player points are not saved."
+                        $("#invalidTeam").animate({"opacity": 1}, 100, function(){
+                            setTimeout(function(){$("#invalidTeam").animate({"opacity": 0})}, 2000)
+                        });
+                    } else {
+                        fetchData()
+                    }
+                    
                 }
 
                 form.classList.add('was-validated')
@@ -124,90 +519,102 @@
             })
         })()
         let counter = 0
-
+        const results = []
         function fetchData() {
-            // document.getElementById("invalidTeam").style.display = "none"
+            results.length = 0
+            console.log(results)
+            document.getElementById("invalidTeam").innerHTML = "No team can be made."
             $("#invalidTeam").animate({"opacity": 0});
             document.getElementById("textBtn").textContent = "Calculating"
             document.getElementById("spinner").style.display = "inline-block"
             document.getElementById("button").disabled = true
-            const uploadedFile = document.getElementById('csvFile').files[0];
-            if (!uploadedFile) {
-                alert("Please select a file.");
-                return;
-            }
-            console.log(uploadedFile['name'])
-            const formData = new FormData();
-            formData.append('file', uploadedFile);
-            console.log(formData)
-            const data2 = {
-                    filename: "uploads/" + uploadedFile['name'],
-                    formation: document.getElementById("Formation").value,
-                    budget: document.getElementById("Budget").value
-                };
+            document.getElementById("button").style.backgroundColor = "#ccc"
+            document.getElementById("button").style.borderColor = "#bbb"
+            const data = {
+                    selectedPlayers: selectedPlayers,
+                    formation: 0,
+                    budget: document.getElementById("Budget").value*10
+                };            
+            runKnapsack(data);
+
             
-            for (var pair of formData.entries()) {
-                console.log(pair[0],pair[1]);
-            }
-            fetch('/printTable', {
+        }
+        let form = 0
+        function runKnapsack(data){
+            
+            fetch('/run_knapsack', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
             .then(response => response.json())
             .then(data => {
-                if (data.message) {
-                    // document.getElementById('status').innerHTML = data.message;
-                }
-                if (data.players) {
-                    displayCSVContent(data.players);
-                }
-                
-                fetch('/run_knapsack', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data2)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.score != -1){
-                        counter++
-                        // document.getElementById("status").innerHTML = data.bestPlayers + "<br>" + data.formation + "<br>" + data.score
-                        const players = parseData(data.bestPlayers.toString());
-                        const table = generateTable(players);
-                        const formation = data.formation.split(",")
-                        const caption = "<div id = 'captionTable'><div><h5>Formation: 1 - " + formation[0] + " - " + formation[1] + " - " + formation[2] + "</h5>" + "<h5>Score: " + data.score + "</h5></div><div><button type='button' class='btn btn-secondary' onclick = 'downloadCSV(" + counter + ", \"" + data.formation + "\", \"" + data.score + "\")''><i class='fa fa-download' aria-hidden='true'></i> csv</button></div></div>"
-                        const bestTeamDiv = document.getElementById('bestTeam');
-                        bestTeamDiv.innerHTML += (caption)
-                        bestTeamDiv.appendChild(table);
-                        document.getElementById("textBtn").textContent = "Get another team"
-                        document.getElementById("spinner").style.display = "none"
-                        document.getElementById("TeamsListNum").innerHTML = counter
-                        var scrollDiv = document.getElementsByClassName("table")[counter].offsetTop;
-                        window.scrollTo({ top: scrollDiv+100, behavior: 'smooth'});
-                        document.getElementById("button").disabled = false
-                    }
-                    else {
-                        // document.getElementById("invalidTeam").style.display = "block"
+                results.push(data)
+                console.log(results)
+                if (form < 6){
+                    form++
+                    runKnapsack({
+                        selectedPlayers: selectedPlayers,
+                        formation: form,
+                        budget: document.getElementById("Budget").value*10
+                    })
+                } else {
+                    const getMax = (array, attr) => {
+                        let max = -Infinity;
+                        array.forEach(obj => {
+                            if (obj[0][attr] > max) {
+                                max = obj[0][attr];
+                            }
+                        });
+                        return max;
+                    };
+                    const maxValue = getMax(results, 'score');
+                    console.log(maxValue)
+                    if (maxValue == -1){
                         $("#invalidTeam").animate({"opacity": 1});
                         document.getElementById("textBtn").textContent = "Get another team"
                         document.getElementById("spinner").style.display = "none"
                         document.getElementById("button").disabled = false
+                        document.getElementById("button").style.backgroundColor = "#0d6efd"
+                        document.getElementById("button").style.borderColor = "#0d6efd"
+
+                    }else {
+                        for(let num = 0; num < results.length; num++){
+                            if(results[num][0].score == maxValue){
+                                counter++
+                                const players = parseData(results[num][0].bestPlayers.toString());
+                                const table = generateTable(players);
+                                const formation = results[num][0].formation.split(",")
+                                const caption = "<div id = 'captionTable'><div><h5>Formation: 1 - " + formation[0] + " - " + formation[1] + " - " + formation[2] + "</h5>" + "<h5>Score: " + results[num][0].score + "</h5><h5>Budget: " + document.getElementById("Budget").value + "</h5></div><div><button type='button' class='btn btn-secondary' onclick = 'downloadCSV(" + counter + ", \"" + results[num][0].formation + "\", \"" + results[num][0].score + "\")''><i class='fa fa-download' aria-hidden='true'></i> csv</button></div></div>"
+                                const bestTeamDiv = document.getElementById('bestTeam');
+                                bestTeamDiv.innerHTML += (caption)
+                                bestTeamDiv.appendChild(table);
+                                document.getElementById("textBtn").textContent = "Get another team"
+                                document.getElementById("spinner").style.display = "none"
+                                document.getElementById("TeamsListNum").innerHTML = counter
+                                var scrollDiv = document.getElementsByClassName("table")[counter].offsetTop;
+                                window.scrollTo({ top: scrollDiv+100, behavior: 'smooth'});
+                                document.getElementById("button").disabled = false
+                                document.getElementById("button").style.backgroundColor = "#0d6efd"  
+                                document.getElementById("button").style.borderColor = "#0d6efd"                              
+                            }
+                        }
                     }
-                });
-            });
+                }
+            })
         }
-        function displayCSVContent(csvData) {
-            console.log(csvData.length)
-            const table = generateTable(csvData);
-            // Insert the table into the div with id "bestTeam"
-            const top200Div = document.getElementById('top200');
-            top200Div.innerHTML = "<h4 class='d-flex justify-content-between align-items-center mb-3'><span class='text-primary'>Your Top 200 Players</span></h4><span class='form-text'>Top 50 per position</span>"
-            top200Div.appendChild(table);
-            // const csvContentDiv = document.getElementById('csvContent');
-            // csvContentDiv.innerHTML = '<pre>' + JSON.stringify(csvData, null, 2) + '</pre>';
-        }
+        // function displayCSVContent(csvData) {
+        //     console.log(csvData.length)
+        //     const table = generateTable(csvData);
+        //     // Insert the table into the div with id "bestTeam"
+        //     const top200Div = document.getElementById('top200');
+        //     top200Div.innerHTML = "<h4 class='d-flex justify-content-between align-items-center mb-3'><span class='text-primary'>Your Top 200 Players</span></h4><span class='form-text'>Top 50 per position</span>"
+        //     top200Div.appendChild(table);
+        //     // const csvContentDiv = document.getElementById('csvContent');
+        //     // csvContentDiv.innerHTML = '<pre>' + JSON.stringify(csvData, null, 2) + '</pre>';
+        // }
                 // Function to parse the data string and return an array of player objects
         function parseData(data) {
             const players = [];
@@ -248,7 +655,7 @@
                 row.appendChild(nameCell);
 
                 const priceCell = document.createElement('td');
-                priceCell.textContent = player.price;
+                priceCell.textContent = player.price / 10;
                 row.appendChild(priceCell);
 
                 const pointsCell = document.createElement('td');
