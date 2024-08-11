@@ -62,10 +62,7 @@ def printTable():
     # csv_data = df.to_dict(orient='records')
     # print(csv_data)
     # Get top 50 players from each position   
-    # top_players_by_position = get_top_players_by_position(players, top_n=50)
-    # merged_top_players = []
-    # for top_players in top_players_by_position.values():
-    #     merged_top_players.extend(top_players)
+
 
     # Sort the merged list by points in descending order
     sorted_merged_top_players = sorted(players, key=lambda player: player.name, reverse=False)
