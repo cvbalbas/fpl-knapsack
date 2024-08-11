@@ -1,15 +1,19 @@
 import requests
 import csv
 
+from unidecode import unidecode
+
 class Player:
-    def __init__(self, name: str, price: int, points: float, position: str):
+    def __init__(self, name: str, price: int, points: float, position: str, id: int, team: str):
         self.name = name
         self.price = price
         self.points = points
         self.position = position
+        self.id = id
+        self.team = team
 
     def __str__(self):
-        return f"({self.name}, {self.price}, {self.points}, {self.position})"
+        return f"({self.name}, {self.price}, {self.points}, {self.position}, {self.id}, {self.team})"
 
     @property
     def position(self):
@@ -37,7 +41,9 @@ class Player:
             'name': self.name,
             'price': self.price,
             'points': self.points,
-            'position': self.position
+            'position': self.position,
+            'id': self.id,
+            'team': self.team
         }
     
 
@@ -57,11 +63,12 @@ def process_fpl_data(data):
     teams = {team['id']: team['name'] for team in data['teams']}
     positions = ["GK", "DEF", "MID", "ATT"]
     players = data['elements']
-    
+    print(players)
     processed_data = []
     for player in players:
         player_data = {
-            'name': player['web_name'],
+            'id': player['id'],
+            'name': unidecode(player['web_name']),
             'team': teams[player['team']],
             'score': player['total_points'],
             'position': positions[player['element_type'] - 1],
@@ -74,7 +81,7 @@ def process_fpl_data(data):
 
 # Function to write data to a CSV file
 def write_to_csv(players_data, filename='fpl_players.csv'):
-    fieldnames = ['name', 'team', 'score', 'position', 'price', 'status']
+    fieldnames = ['id', 'name', 'team', 'score', 'position', 'price', 'status']
     with open(filename, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
@@ -98,15 +105,16 @@ def create_players_from_csv(filename='fpl_players.csv'):
     with open(filename, mode='r', encoding='utf-8') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            if int(row['score']) > 0 and row['status'] == 'a':
-                name = row['name']
-                price = float(row['price'])
-                points = float(row['score'])
-                position = row['position']
-                # Create a Player instance and append to the list
-                player = Player(name=name, price=price, points=points, position=position)
-                players.append(player)
-                # print(player)
+            name = row['name']
+            price = float(row['price'])
+            points = float(row['score'])
+            position = row['position']
+            id = int(row['id'])
+            team = row['team']
+            # Create a Player instance and append to the list
+            player = Player(name=name, price=price, points=points, position=position, id=id, team=team)
+            players.append(player)
+            # print(player)
     print(len(players))
     return players
 
